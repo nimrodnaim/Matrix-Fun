@@ -1,3 +1,5 @@
+#include <matrix.h>
+
 class Matrix {
 private:
     int num_rows;
@@ -9,25 +11,27 @@ public:
     void transpose();
     static Matrix multiply(Matrix, Matrix);
     static Matrix add(Matrix, Matrix);
+    vector<vector<int>> get_matrix();
     int get_num_rows();
     int get_num_cols();
-    vector<vector<int>> get_matrix()
+    Matrix(int, int);
+    Matrix(int, int, vector<vector<int>>);
 
-    Matrix(int num_rows, int num_cols) {
-        this->num_rows = num_rows;
-        this->num_cols = num_cols;
+}
 
-        vector<vector<int>> zero_matrix(num_rows, vector<int, num_cols>);
-        this->matrix = zero_matrix;
-    }
+Matrix::Matrix(int, int num_cols) {
+    this->num_rows = num_rows;
+    this->num_cols = num_cols;
 
-    Matrix(int num_rows, int num_cols, vector<vector<int>> init_matrix) {
-        this->num_rows = num_rows;
-        this->num_cols = num_cols;
+    vector<vector<int>> zero_matrix(num_rows, vector<int, num_cols>);
+    this->matrix = zero_matrix;
+}
 
-        matrix = init_matrix;
-    }
-    
+Matrix::Matrix(int num_rows, int num_cols, vector<vector<int>> init_matrix) {
+    this->num_rows = num_rows;
+    this->num_cols = num_cols;
+
+    matrix = init_matrix;
 }
 
 Matrix::print_matrix() {

@@ -3,11 +3,15 @@
 
 #include <iostream>
 #include <vector>
+#include "matrix.h"
 using namespace std;
 
 
 int main() {
     vector<vector<int>> init_matrix = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
-    // Matrix matrix = Matrix(3, 3, init_matrix);
-    matrix.print_matrix();
+    Matrix a = Matrix(3, 3, init_matrix);
+    Matrix b = Matrix(3, 3);
+    
+    a.print_matrix();
+    b.print_matrix();
 }
