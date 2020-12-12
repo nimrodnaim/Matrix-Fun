@@ -1,31 +1,5 @@
 #include <matrix.h>
-
-class Matrix {
-private:
-    int num_rows;
-    int num_cols;
-    vector<vector<int>> matrix;
-public:
-    void print_matrix();
-    void multiply_by_scalar(int);
-    void transpose();
-    static Matrix multiply(Matrix, Matrix);
-    static Matrix add(Matrix, Matrix);
-    vector<vector<int>> get_matrix();
-    int get_num_rows();
-    int get_num_cols();
-    Matrix(int, int);
-    Matrix(int, int, vector<vector<int>>);
-
-}
-
-Matrix::Matrix(int, int num_cols) {
-    this->num_rows = num_rows;
-    this->num_cols = num_cols;
-
-    vector<vector<int>> zero_matrix(num_rows, vector<int, num_cols>);
-    this->matrix = zero_matrix;
-}
+using namespace std;
 
 Matrix::Matrix(int num_rows, int num_cols, vector<vector<int>> init_matrix) {
     this->num_rows = num_rows;
@@ -34,7 +8,15 @@ Matrix::Matrix(int num_rows, int num_cols, vector<vector<int>> init_matrix) {
     matrix = init_matrix;
 }
 
-Matrix::print_matrix() {
+Matrix::Matrix(int num_rows, int num_cols) {
+    this->num_rows = num_rows;
+    this->num_cols = num_cols;
+
+    vector<vector<int>> zero_matrix(num_rows, vector<int, num_cols>);
+    this->matrix = zero_matrix;
+}
+
+void Matrix::print_matrix() {
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
             cout << matrix[i][j] << " ";
@@ -43,7 +25,7 @@ Matrix::print_matrix() {
     }
 }
 
-Matrix::multiply_by_scalar(int scalar) {
+void Matrix::multiply_by_scalar(int scalar) {
     for (int i = 0; i < this->num_rows; i++) {
         for (int j = 0; j < this->num_cols; j++) {
             this->matrix[i][j] *= scalar;
@@ -51,7 +33,7 @@ Matrix::multiply_by_scalar(int scalar) {
     }
 }
 
-Matrix::transpose() {
+void Matrix::transpose() {
     int temp = this->num_rows;
     this->num_cols = num_rows;
     this->num_rows = temp;
@@ -66,19 +48,19 @@ Matrix::transpose() {
     this->matrix = transposed_matrix;
 }
 
-Matrix::get_num_rows() {
+int Matrix::get_num_rows() {
     return this->num_rows;
 }
 
-Matrix::get_num_cols() {
+int Matrix::get_num_cols() {
     return this->num_cols;
 }
 
-Matrix::get_matrix() {
+vector<vector<int>> Matrix::get_matrix() {
     return this->matrix;
 }
 
-Matrix::add(Matrix a, Matrix b) {
+static Matrix::add(Matrix a, Matrix b) {
     //TODO: add an exception for bad sizes
     int num_rows = a.get_num_rows();
     int num_cols = a.get_num_cols();
@@ -97,7 +79,7 @@ Matrix::add(Matrix a, Matrix b) {
     return c;
 }
 
-Matrix::mult(Matrix a, Matrix b) {
+static Matrix::mult(Matrix a, Matrix b) {
     //TODO: add an exception for bad sizes
     int num_rows = a.get_num_rows();
     int num_cols = b.get_num_cols();
