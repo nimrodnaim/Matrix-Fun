@@ -35,7 +35,7 @@ void Matrix::multiply_by_scalar(int scalar) {
 }
 
 void Matrix::transpose() {
-    int temp = this->num_rows;
+    int temp = this->num_cols;
     this->num_cols = num_rows;
     this->num_rows = temp;
 
