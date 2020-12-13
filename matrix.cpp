@@ -1,4 +1,5 @@
-#include <matrix.h>
+#include "matrix.h"
+#include <iostream>
 using namespace std;
 
 Matrix::Matrix(int num_rows, int num_cols, vector<vector<int>> init_matrix) {
@@ -12,7 +13,7 @@ Matrix::Matrix(int num_rows, int num_cols) {
     this->num_rows = num_rows;
     this->num_cols = num_cols;
 
-    vector<vector<int>> zero_matrix(num_rows, vector<int, num_cols>);
+    vector<vector<int>> zero_matrix(num_rows, vector<int>(num_cols, 0));
     this->matrix = zero_matrix;
 }
 
@@ -38,7 +39,7 @@ void Matrix::transpose() {
     this->num_cols = num_rows;
     this->num_rows = temp;
 
-    vector<vector<int>> transposed_matrix(num_rows, vector<int, num_cols>);
+    vector<vector<int>> transposed_matrix(num_rows, vector<int>(num_cols, 0));
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
             transposed_matrix[i][j] = this->matrix[j][i];
@@ -60,18 +61,18 @@ vector<vector<int>> Matrix::get_matrix() {
     return this->matrix;
 }
 
-static Matrix::add(Matrix a, Matrix b) {
+Matrix Matrix::add(Matrix a, Matrix b) {
     //TODO: add an exception for bad sizes
     int num_rows = a.get_num_rows();
     int num_cols = a.get_num_cols();
 
     vector<vector<int>> a_matrix = a.get_matrix();
     vector<vector<int>> b_matrix = b.get_matrix();
-    vector<vector<int>> sum_matrix(num_rows, vector<int, num_cols>);
+    vector<vector<int>> sum_matrix(num_rows, vector<int>(num_cols, 0));
 
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
-            sum_matrix[i][j] = a[i][j] + b[i][j];
+            sum_matrix[i][j] = a_matrix[i][j] + b_matrix[i][j];
         }
     }
 
@@ -79,7 +80,7 @@ static Matrix::add(Matrix a, Matrix b) {
     return c;
 }
 
-static Matrix::mult(Matrix a, Matrix b) {
+Matrix Matrix::mult(Matrix a, Matrix b) {
     //TODO: add an exception for bad sizes
     int num_rows = a.get_num_rows();
     int num_cols = b.get_num_cols();
@@ -88,7 +89,8 @@ static Matrix::mult(Matrix a, Matrix b) {
     vector<vector<int>> a_matrix = a.get_matrix();
     vector<vector<int>> b_matrix = b.get_matrix();
 
-    vector<vector<int>> mult_matrix(num_rows, vector<int, num_cols>);
+    vector<vector<int>> mult_matrix(num_rows, vector<int>(num_cols, 0));
+
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
             int sum = 0;
@@ -100,6 +102,6 @@ static Matrix::mult(Matrix a, Matrix b) {
         }
     }
 
-    Matrix c = Matrix(num_rows, num_cols, mult_matrix);
+    Matrix c(num_rows, num_cols, mult_matrix);
     return c;
 }
